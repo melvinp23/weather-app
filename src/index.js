@@ -4,8 +4,6 @@ const api_key = 'BKULCM6WCG2SXVP8Y4EU7SY3W';
 const print =
 	'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london?key=';
 
-console.log(addressDiv.textContent);
-
 async function getWeather() {
 	try {
 		const response = await fetch(
