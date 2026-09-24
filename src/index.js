@@ -1,22 +1,31 @@
-const getWeatherBtn = document.getElementById('get-weather');
-const addressDiv = document.querySelector('p');
 const api_key = 'BKULCM6WCG2SXVP8Y4EU7SY3W';
-const print =
-	'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london?key=';
 
-async function getWeather() {
-	try {
-		const response = await fetch(
-			`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london?key=${api_key}`,
-		);
-		const weatherData = await response.json();
-		addressDiv.textContent = weatherData.address;
-		document.body.appendChild(addressDiv);
-		getWeatherBtn.addEventListener('click', () => {
-			console.log(weatherData);
+const searchInput = document.getElementById('search');
+const searchBtn = document.getElementById('search-btn');
+const weatherContainer = document.getElementById('container');
+
+const searchLocation = () => {
+	fetch(
+		`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${searchInput.value}?key=${api_key}`,
+	)
+		.then(function (response) {
+			return response.json();
+		})
+		.then(function (response) {
+			const address = document.createElement('div');
+			address.textContent = `name: ${response.resolvedAddress}`;
+			weatherContainer.appendChild(address);
+		})
+		.catch(function (error) {
+			console.error(error.message);
 		});
-	} catch (error) {
-		console.error(error);
+};
+
+searchBtn.addEventListener('click', event => {
+	event.preventDefault();
+	if (searchInput.value == '') {
+		console.error('Please enter a valid location');
+	} else {
+		searchLocation();
 	}
-}
-getWeather();
+});
