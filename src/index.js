@@ -1,7 +1,9 @@
+import './style.css';
+
 const api_key = 'BKULCM6WCG2SXVP8Y4EU7SY3W';
 const searchInput = document.getElementById('search');
 const searchBtn = document.getElementById('search-btn');
-const weatherContainer = document.getElementById('container');
+const weatherContainer = document.getElementById('location-container');
 
 const searchLocation = () => {
 	fetch(
